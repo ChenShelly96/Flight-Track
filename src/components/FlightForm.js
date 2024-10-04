@@ -1,28 +1,34 @@
 import React, { useState } from 'react';
-import { getFlightDetails } from './flightInfo';
+import { getFlightDetails } from './flightInfo'; // Importing the function from flightInfo.js
 
 const FlightForm = () => {
+  // State to store the flight number input by the user
   const [flightNumber, setFlightNumber] = useState('');
+  // State to store the fetched flight data
   const [flightData, setFlightData] = useState(null);
-  const [error, setError] = useState(null); 
+  // State to handle and display error messages
+  const [error, setError] = useState(null);
 
+  // Function that handles the form submission
   const submitFlight = async (event) => {
-    event.preventDefault();
-    setError(null); 
+    event.preventDefault(); // Prevents page from refreshing
     try {
-    
+      setError(null); // Resetting any previous errors
+      // Calling the function from flightInfo.js to fetch flight details
       const flightDetails = await getFlightDetails(flightNumber);
+      // Storing the fetched flight details in the state
       setFlightData(flightDetails);
-      console.log("!!!!!" + flightDetails);
     } catch (error) {
       console.error('Error fetching flight data:', error);
-      setError('Failed to fetch flight details. Please try again.');
+      // Setting the error state to display the message
+      setError('Failed to fetch flight data. Please try again.');
     }
   };
 
   return (
     <div>
       <h2>Flight Tracker</h2>
+      {/* Form to input flight number */}
       <form onSubmit={submitFlight}>
         <div>
           <label htmlFor="flightNumber">Flight Number:</label>
@@ -30,6 +36,7 @@ const FlightForm = () => {
             type="text"
             id="flightNumber"
             value={flightNumber}
+            // Updating the flight number state when user types
             onChange={(e) => setFlightNumber(e.target.value)}
             required
           />
@@ -37,19 +44,21 @@ const FlightForm = () => {
         <button type="submit">Track Flight</button>
       </form>
 
+      {/* Displaying error message if any */}
       {error && <p style={{ color: 'red' }}>{error}</p>}
 
+      {/* Displaying flight details if available */}
       {flightData && (
         <div>
           <h3>Flight Status</h3>
-          <p><strong>Airline:</strong> {flightData.airline}</p>
-          <p><strong>Flight Number:</strong> {flightData.flightNumber}</p>
-          <p><strong>From:</strong> {flightData.from}</p>
-          <p><strong>To:</strong> {flightData.to}</p>
-          <p><strong>Terminal:</strong> {flightData.terminal || 'N/A'}</p>
-          <p><strong>Scheduled Arrival Time:</strong> {flightData.scheduledTime}</p>
-          <p><strong>Actual Arrival Time:</strong> {flightData.actualTime || 'N/A'}</p>
-          <p><strong>Status:</strong> {flightData.status}</p>
+          <p>Airline: {flightData.airline}</p> {/* Airline name */}
+          <p>Flight Number: {flightData.flightNumber}</p> {/* Flight number */}
+          <p>From: {flightData.from}</p> {/* Departure airport */}
+          <p>To: {flightData.to}</p> {/* Arrival airport */}
+          <p>Terminal: {flightData.terminal}</p> {/* Arrival terminal */}
+          <p>Scheduled Arrival: {new Date(flightData.scheduledTime).toLocaleString()}</p> {/* Scheduled time */}
+          <p>Actual Arrival: {new Date(flightData.actualTime).toLocaleString()}</p> {/* Actual time if available */}
+          <p>Status: {flightData.status}</p> {/* Flight status */}
         </div>
       )}
     </div>
