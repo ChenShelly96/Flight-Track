@@ -31,7 +31,7 @@ async function getFlightDetails(flightNumber) {
                 actualTime: flightData.arrival.estimated,
                 status: flightData.flight_status
             };
-            
+            console.log("!!!!!" + flightDetails);
             return flightDetails; // Return flight details
         } else {
             throw new Error('Flight not found.');

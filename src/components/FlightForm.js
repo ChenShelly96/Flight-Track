@@ -1,18 +1,22 @@
-import axios from 'axios';
 import React, { useState } from 'react';
+import { getFlightDetails } from './flightInfo';
 
 const FlightForm = () => {
   const [flightNumber, setFlightNumber] = useState('');
   const [flightData, setFlightData] = useState(null);
+  const [error, setError] = useState(null); 
 
   const submitFlight = async (event) => {
     event.preventDefault();
+    setError(null); 
     try {
-  
-      const response = await axios.get(`https://mysterious-fortress-46920-6fc91d4ef02d.herokuapp.com/check-updates/${flightNumber}`);
-      setFlightData(response.data);
+    
+      const flightDetails = await getFlightDetails(flightNumber);
+      setFlightData(flightDetails);
+      console.log("!!!!!" + flightDetails);
     } catch (error) {
       console.error('Error fetching flight data:', error);
+      setError('Failed to fetch flight details. Please try again.');
     }
   };
 
@@ -33,12 +37,19 @@ const FlightForm = () => {
         <button type="submit">Track Flight</button>
       </form>
 
+      {error && <p style={{ color: 'red' }}>{error}</p>}
+
       {flightData && (
         <div>
           <h3>Flight Status</h3>
-          <p>Status: {flightData.status}</p>
-          <p>Departure Time: {flightData.departureTime}</p>
-          <p>Arrival Time: {flightData.arrivalTime}</p>
+          <p><strong>Airline:</strong> {flightData.airline}</p>
+          <p><strong>Flight Number:</strong> {flightData.flightNumber}</p>
+          <p><strong>From:</strong> {flightData.from}</p>
+          <p><strong>To:</strong> {flightData.to}</p>
+          <p><strong>Terminal:</strong> {flightData.terminal || 'N/A'}</p>
+          <p><strong>Scheduled Arrival Time:</strong> {flightData.scheduledTime}</p>
+          <p><strong>Actual Arrival Time:</strong> {flightData.actualTime || 'N/A'}</p>
+          <p><strong>Status:</strong> {flightData.status}</p>
         </div>
       )}
     </div>
