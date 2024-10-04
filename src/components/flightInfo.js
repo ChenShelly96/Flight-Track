@@ -1,9 +1,8 @@
 // flightInfo.js
 const axios = require('axios');
-require('dotenv').config();
-// API key for AviationStack - put your actual API key here
-const API_KEY = process.env.API_KEY_AVIATIONSTACK; 
 
+// API key for AviationStack - put your actual API key here
+const API_KEY = "6e7d32f1d3ff56a6d6ac8bca23f95df4"
 /**
  * Fetch flight information based on flight number from AviationStack API
  * @param {string} flightNumber - The flight number input by the user
