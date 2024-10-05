@@ -1,0 +1,55 @@
+/* FlightForm.css */
+
+.flight-form {
+    margin-top: 20px;
+    padding: 20px;
+    border-radius: 8px;
+    background-color: rgba(0, 0, 0, 0.5); 
+    color: white; 
+    backdrop-filter: blur(10px); 
+  }
+  
+  .flight-details {
+    margin-top: 20px;
+    padding: 20px;
+    border-radius: 8px;
+    background-color: rgba(0, 0, 0, 0.6);
+    color: white;
+    backdrop-filter: blur(10px);
+}
+  
+  /* Flight status */
+  .flight-status {
+    font-weight: bold;
+    text-align: right;
+  }
+  .depText{
+    margin-top: 5%;
+    margin-left: 20%;
+  }
+  .arrText{
+    margin-top: 5%;
+    margin-left: 20%;
+  }
+  .flight-status.on-time {
+    color: green;
+  }
+  
+  .flight-status.delayed {
+    color: orange;
+  }
+  
+  .flight-status.cancelled {
+    color: red;
+  }
+  
+  .flight-section {
+    margin-bottom: 20px;
+  }
+  
+  .flight-section h4 {
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 5px;
+    margin-bottom: 10px;
+  }
+  

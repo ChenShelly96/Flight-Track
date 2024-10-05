@@ -1,0 +1,15 @@
+[
+    {
+      "flightNumber": "LY001",
+      "email": "user1@example.com",
+      "date": "2024-10-01",
+      "previousStatus": "on_time"
+    },
+    {
+      "flightNumber": "UA122",
+      "email": "user2@example.com",
+      "date": "2024-10-02",
+      "previousStatus": "delayed"
+    }
+  ]
+  
